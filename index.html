@@ -25,15 +25,23 @@
         It is also pretty strict when it comes to EPUB format validation.
     </p>
     <p>
-        This tool will try to fix your EPUB to be able to use with Send to Kindle. 
-        It currently tries to fix these problems:
+        This tool will try to fix your EPUB to be able to use with Send to Kindle.
+        It fixes these problems:
     </p>
     <ul>
         <li>Fix UTF-8 encoding problem by adding UTF-8 declaration if no encoding is specified</li>
-        <li>Fix hyperlink problem (result in Amazon rejecting the EPUB) when NCX table of content link to &lt;body&gt;
-            with ID hash.</li>
-        <li>Detect invalid and/or missing language tag in metadata, and prompt user to select new language.</li>
-        <li>Remove stray &lt;img&gt; tags with no source field.</li>
+        <li>Fix hyperlink problem when NCX table of contents links to &lt;body&gt; with ID hash</li>
+        <li>Detect invalid and/or missing language tag in metadata, and prompt user to select new language</li>
+        <li>Remove stray &lt;img&gt; tags with no source field</li>
+        <li>Remove empty alt="" attributes that cause E21018 parsing errors</li>
+        <li>Remove data-AmznRemoved attributes that cause kindlegen rejection</li>
+        <li>Fix unique-identifier mismatch between package and dc:identifier</li>
+        <li>Fix NCX playOrder sequence numbering</li>
+        <li>Normalize smart quotes and special characters in NCX navigation</li>
+        <li>Remove EPUB3-only attributes (epub:type, epub:prefix, xmlns:epub)</li>
+        <li>Convert &lt;b&gt;/&lt;strong&gt;/&lt;i&gt;/&lt;em&gt; to CSS-styled &lt;span&gt; elements</li>
+        <li>Remove &lt;script&gt; tags</li>
+        <li>Clean up OPF metadata (remove primary-writing-mode)</li>
     </ul>
     <p>
         <b>Privacy:</b> The book is processed locally in your browser. We do not upload your file anywhere.
@@ -44,6 +52,11 @@
     </p>
     <p>
         <b>Useful Tool: </b> <b><a href="https://ktool.io?ref=kindle-epub-fix">KTool.io</a></b> &mdash; Send web articles, newsletters & RSS feeds to Kindle
+    </p>
+    <p>
+        <b>Debugging Tip:</b> If your EPUB still fails after processing, download
+        <a href="https://www.amazon.com/Kindle-Previewer/b?node=21381691011" rel="noopener" target="_blank">Kindle Previewer</a>
+        and open the EPUB there. It shows detailed error codes (like E21018) that help identify remaining issues.
     </p>
 
     <h2>Select your EPUB</h2>
@@ -67,6 +80,17 @@
     <h2>Version History</h2>
 
     <ul>
+        <li>
+            <strong>2.0 - Jan 8, 2026 (Enhanced Fork)</strong><br>
+            Fix E21018 errors: remove empty alt="" and data-AmznRemoved attributes<br>
+            Fix unique-identifier mismatch in OPF<br>
+            Fix NCX playOrder sequence<br>
+            Normalize smart quotes in NCX navigation<br>
+            Remove EPUB3-only attributes (epub:type, xmlns:epub)<br>
+            Convert b/strong/i/em to CSS-styled spans<br>
+            Remove script tags and clean OPF metadata<br>
+            Preserve well-formed XHTML structure (regex-based fixes)
+        </li>
         <li>
             <strong>1.3 - Jan 4, 2023</strong><br>
             Batch processing<br>
@@ -101,8 +125,9 @@
         </li>
     </ul>
 
-    <p>Source code is available on <a href="https://github.com/innocenat/kindle-epub-fix" rel="noopener"
-            target="_blank">GitHub.</a></p>
+    <p>Source code is available on <a href="https://github.com/zglate/kindle-epub-fix" rel="noopener"
+            target="_blank">GitHub</a> (forked from <a href="https://github.com/innocenat/kindle-epub-fix" rel="noopener"
+            target="_blank">innocenat/kindle-epub-fix</a>).</p>
 
     <script src="script.js"></script>
 </body>
